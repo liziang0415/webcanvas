@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-foreground font-mono;
+    scroll-behavior: smooth;
+  }
+  ::selection {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #0a0a0a; }
+  ::-webkit-scrollbar-thumb { background: #333; }
+}
+
+@layer components {
+  .terminal-btn {
+    @apply font-mono text-sm px-3 py-1.5 border border-border text-muted hover:border-foreground hover:text-foreground transition-colors rounded-sm cursor-pointer;
+  }
+  .terminal-btn-primary {
+    @apply bg-foreground text-background border-foreground hover:bg-transparent hover:text-foreground;
+  }
+  .terminal-card {
+    @apply bg-surface border border-border rounded-sm font-mono;
+  }
+  .terminal-label {
+    @apply text-muted-2 text-xs tracking-widest uppercase;
+  }
+  .terminal-prompt {
+    @apply text-muted text-sm;
+  }
+}
+
+@keyframes particle-float {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.15; }
+  50% { transform: translateY(-12px) translateX(6px); opacity: 0.4; }
+}
+
+.particles-bg {
+  background-image: radial-gradient(circle, #2a2a2a 1px, transparent 1px);
+  background-size: 48px 48px;
+  animation: particle-float 8s ease-in-out infinite;
+}
