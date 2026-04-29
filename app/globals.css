@@ -34,13 +34,14 @@
   }
 }
 
-@keyframes particle-float {
-  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.15; }
-  50% { transform: translateY(-12px) translateX(6px); opacity: 0.4; }
+@keyframes particle-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 48px 48px; }
 }
 
 .particles-bg {
   background-image: radial-gradient(circle, #2a2a2a 1px, transparent 1px);
   background-size: 48px 48px;
-  animation: particle-float 8s ease-in-out infinite;
+  animation: particle-drift 12s linear infinite;
+  opacity: 0.6;
 }
