@@ -14,9 +14,10 @@ const MAX_ENTRIES = 30
 export async function readEntries(filePath = DEFAULT_PATH): Promise<DevLogEntry[]> {
   try {
     const raw = await fs.readFile(filePath, 'utf-8')
-    return JSON.parse(raw)
-  } catch {
-    return []
+    return JSON.parse(raw) as DevLogEntry[]
+  } catch (err: unknown) {
+    if ((err as NodeJS.ErrnoException).code === 'ENOENT') return []
+    throw err
   }
 }
 
