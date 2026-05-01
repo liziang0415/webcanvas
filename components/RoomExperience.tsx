@@ -25,6 +25,14 @@ export default function RoomExperience({ todayEntry }: Props) {
     // ── Scene ────────────────────────────────────────────────────────────
     const { camera, renderer, screenMeshes, resize, render } = createRoomScene(canvas)
 
+    // Force initial size — canvas.clientWidth is 0 at useEffect time before
+    // the browser has completed a layout pass, so we use window dimensions.
+    const initW = canvas.clientWidth  || window.innerWidth
+    const initH = canvas.clientHeight || window.innerHeight
+    renderer.setSize(initW, initH, false)
+    camera.aspect = initW / initH
+    camera.updateProjectionMatrix()
+
     // ── Screen pipelines ─────────────────────────────────────────────────
     const monitorP = createScreenPipeline(1200, 750,  getProjectsScreenHTML())
     const tvP      = createScreenPipeline(1120, 630,  getDevLogScreenHTML(todayEntry))
