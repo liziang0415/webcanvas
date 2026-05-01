@@ -89,22 +89,23 @@ export function createRoomScene(canvas: HTMLCanvasElement): RoomScene {
   poster.rotation.y = Math.PI / 2
   scene.add(poster)
 
-  // Lighting — values matched from html-in-canvas.dev demo for visibility
-  scene.add(new THREE.AmbientLight(0xa0a0c0, 1.2))
+  // Lighting
+  scene.add(new THREE.AmbientLight(0xffffff, 0.4))
 
-  const overhead = new THREE.PointLight(0xffe4c4, 1.4, 22)
+  const overhead = new THREE.PointLight(0xffe4c4, 3.0, 22)
   overhead.position.set(0, ROOM_H - 0.3, 0)
   scene.add(overhead)
 
-  const monitorGlow = new THREE.PointLight(0x4a9eff, 1.4, 7)
+  // Screen glows — high intensity so they're clearly visible on the walls
+  const monitorGlow = new THREE.PointLight(0x4a9eff, 4.0, 8)
   monitorGlow.position.set(0, 1.85, -3.0)
   scene.add(monitorGlow)
 
-  const tvGlow = new THREE.PointLight(0x6c41f0, 1.1, 7)
+  const tvGlow = new THREE.PointLight(0x9b59b6, 3.5, 8)
   tvGlow.position.set(4.0, 2.1, -1.0)
   scene.add(tvGlow)
 
-  const posterGlow = new THREE.PointLight(0x00e5b9, 0.9, 6)
+  const posterGlow = new THREE.PointLight(0x00e5b9, 3.0, 7)
   posterGlow.position.set(-4.0, 1.8, 0)
   scene.add(posterGlow)
 

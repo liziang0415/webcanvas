@@ -25,9 +25,11 @@ export function createScreenPipeline(
   // layoutsubtree goes on the CANVAS itself — this opts the canvas into
   // html-in-canvas mode, allowing drawElementImage to capture its DOM children.
   staging.setAttribute('layoutsubtree', '')
-  // Position off-screen but keep in DOM (required for layout participation)
+  // Keep in viewport at opacity:0 — browsers skip painting truly off-screen
+  // elements, which would prevent drawElementImage from ever getting a paint
+  // record. opacity:0 keeps it in the render tree while hiding it from users.
   staging.style.cssText =
-    `position:fixed;left:-${width + 20}px;top:0;width:${width}px;height:${height}px;pointer-events:none;`
+    `position:fixed;left:0;top:0;width:${width}px;height:${height}px;opacity:0;pointer-events:none;z-index:-1;`
   document.body.appendChild(staging)
 
   const stagingCtx = staging.getContext('2d')!
