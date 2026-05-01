@@ -60,14 +60,20 @@ export function createScreenPipeline(
   // onpaint is assigned without optional chaining: RoomGate already verified
   // drawElementImage exists before this code runs, so the full API is present.
   staging.onpaint = () => {
-    stagingCtx.clearRect(0, 0, width, height)
-    stagingCtx.drawElementImage(contentEl, 0, 0)
-    dirty = true
+    try {
+      stagingCtx.clearRect(0, 0, width, height)
+      stagingCtx.drawElementImage(contentEl, 0, 0)
+      dirty = true
+    } catch {
+      // "No cached paint record" — element not yet laid out by the browser.
+      // Request another paint on the next animation frame to retry.
+      requestAnimationFrame(() => staging.requestPaint?.())
+    }
   }
 
-  // requestPaint uses optional chaining defensively for environments where
-  // the API surface is partially polyfilled or the call is a no-op.
-  staging.requestPaint?.()
+  // Delay the initial requestPaint until the browser has completed at least
+  // one layout pass — otherwise the element has no paint record yet.
+  requestAnimationFrame(() => staging.requestPaint?.())
 
   function sync() {
     if (!dirty) return
