@@ -22,19 +22,20 @@ export function createScreenPipeline(
   const staging = document.createElement('canvas')
   staging.width  = width
   staging.height = height
-  // Position off-screen but keep in DOM (layoutsubtree requires DOM presence)
+  // layoutsubtree goes on the CANVAS itself — this opts the canvas into
+  // html-in-canvas mode, allowing drawElementImage to capture its DOM children.
+  staging.setAttribute('layoutsubtree', '')
+  // Position off-screen but keep in DOM (required for layout participation)
   staging.style.cssText =
     `position:fixed;left:-${width + 20}px;top:0;width:${width}px;height:${height}px;pointer-events:none;`
   document.body.appendChild(staging)
 
   const stagingCtx = staging.getContext('2d')!
 
-  // Content element — direct child of staging canvas, marked layoutsubtree
-  // so html-in-canvas captures its rendering via drawElementImage.
+  // Content element — regular child of the staging canvas (no layoutsubtree on it).
   // HTML is injected directly (not via iframe) to stay same-origin — cross-origin
   // iframes would be tainted and produce blank textures under the WICG spec.
   const contentEl = document.createElement('div')
-  contentEl.setAttribute('layoutsubtree', '')
   contentEl.style.cssText = `width:${width}px;height:${height}px;overflow:hidden;`
   contentEl.innerHTML = html
   staging.appendChild(contentEl)
