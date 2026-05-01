@@ -1,0 +1,8 @@
+[
+  {
+    "date": "2026-04-29",
+    "title": "Why I keep reaching for Express even when everyone says use Fastify",
+    "body": "I started a new side project last week and, almost automatically, typed `npm install express`. I didn't even think about it. Which made me wonder: am I choosing Express because it's genuinely the right tool, or because it's the tool that's already in my hands?\n\nThe honest answer is probably both. Express is boring in the best way — the docs are complete, every error message has a Stack Overflow thread, and I know exactly where the footguns are. With Fastify I'd spend the first hour learning the framework instead of building the thing.\n\nFor a hobby project, speed of thought matters more than speed of execution. Maybe that changes when I'm building something that needs to handle real load. But for now, boring wins.",
+    "tags": ["Node.js", "Express", "Backend"]
+  }
+]
