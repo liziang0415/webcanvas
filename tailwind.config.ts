@@ -13,7 +13,7 @@ const config: Config = {
         'muted-2':      '#444444',
         'muted-3':      '#333333',
       },
-      fontFamily: { mono: ['var(--font-mono)', 'monospace'] },
+      fontFamily: { mono: ['var(--font-geist-mono)', 'monospace'] },
     },
   },
   plugins: [],
