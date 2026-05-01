@@ -31,15 +31,12 @@ export function createScreenPipeline(
 
   // Content element — direct child of staging canvas, marked layoutsubtree
   // so html-in-canvas captures its rendering via drawElementImage.
-  // We use an iframe with srcdoc for full CSS isolation of the HTML template.
+  // HTML is injected directly (not via iframe) to stay same-origin — cross-origin
+  // iframes would be tainted and produce blank textures under the WICG spec.
   const contentEl = document.createElement('div')
   contentEl.setAttribute('layoutsubtree', '')
   contentEl.style.cssText = `width:${width}px;height:${height}px;overflow:hidden;`
-
-  const iframe = document.createElement('iframe')
-  iframe.style.cssText = `width:${width}px;height:${height}px;border:none;display:block;`
-  iframe.srcdoc = html
-  contentEl.appendChild(iframe)
+  contentEl.innerHTML = html
   staging.appendChild(contentEl)
 
   // ── Mirror canvas ─────────────────────────────────────────────────────────

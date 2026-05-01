@@ -110,7 +110,10 @@ export function createRoomScene(canvas: HTMLCanvasElement): RoomScene {
 
   function resize() {
     const w = canvas.clientWidth, h = canvas.clientHeight
-    if (renderer.domElement.width !== w || renderer.domElement.height !== h) {
+    const pr = renderer.getPixelRatio()
+    // Compare against the scaled buffer size Three.js would produce
+    if (renderer.domElement.width  !== Math.round(w * pr) ||
+        renderer.domElement.height !== Math.round(h * pr)) {
       renderer.setSize(w, h, false)
       camera.aspect = w / h
       camera.updateProjectionMatrix()
