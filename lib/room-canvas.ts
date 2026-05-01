@@ -55,14 +55,17 @@ export function createScreenPipeline(
 
   let dirty = false
 
-  // html-in-canvas paint callback — fires when the layoutsubtree element changes
+  // html-in-canvas paint callback — fires when the layoutsubtree element changes.
+  // onpaint is assigned without optional chaining: RoomGate already verified
+  // drawElementImage exists before this code runs, so the full API is present.
   staging.onpaint = () => {
     stagingCtx.clearRect(0, 0, width, height)
     stagingCtx.drawElementImage(contentEl, 0, 0)
     dirty = true
   }
 
-  // Kick off first paint
+  // requestPaint uses optional chaining defensively for environments where
+  // the API surface is partially polyfilled or the call is a no-op.
   staging.requestPaint?.()
 
   function sync() {
