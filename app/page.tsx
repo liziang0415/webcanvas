@@ -17,29 +17,48 @@ const projects = [
     type: "Collaboration platform",
     body: "Course-team formation, authentication flows, student profiles, and group joining APIs for university workflows.",
     stack: ["Node.js", "Express", "MongoDB"],
-    metric: "14 flows",
+    metric: "AWS",
+    href: "https://github.com/UOA-CS732-S1-2026/group-project-404-again",
   },
   {
     title: "Game Library",
     type: "Collection interface",
     body: "A responsive catalog for browsing, searching, and reviewing games with a Python backend and relational storage.",
     stack: ["HTML/CSS", "Flask", "MySQL"],
-    metric: "3 sources",
+    metric: "Team",
+    href: "https://github.com/liziang0415/zli775-group-work",
   },
   {
     title: "Personal Data Platform",
     type: "Private analytics",
     body: "A capstone prototype for privacy-aware personal data trading, shaped through UX research and information modelling.",
     stack: ["Python", "SQL", "UX Design"],
-    metric: "8 pipelines",
+    metric: "Capstone",
+    href: "https://github.com/liziang0415/DATA-MARKETPLACE",
+  },
+  {
+    title: "FakeBust",
+    type: "AI verification tool",
+    body: "An AI-powered fake news detector with multilingual input, confidence scoring, shareable reports, and MongoDB-backed evaluation history.",
+    stack: ["Next.js", "TypeScript", "Gemini API"],
+    metric: "Vercel",
+    href: "https://github.com/liziang0415/FakeBust",
+  },
+  {
+    title: "WebCanvas",
+    type: "3D portfolio room",
+    body: "A Three.js portfolio room that renders live HTML pages inside canvas-driven 3D screens with a maintainable Next.js workflow.",
+    stack: ["Three.js", "Canvas API", "Tailwind CSS"],
+    metric: "3D",
+    href: "https://github.com/liziang0415/webcanvas",
   },
 ];
 
 const stackGroups = [
-  ["Languages", ["JavaScript", "Python", "Java", "C#"]],
-  ["Frontend", ["React", "Next.js", "Vite", "Tailwind CSS"]],
+  ["Languages", ["JavaScript", "TypeScript", "Python", "Java", "C#"]],
+  ["Frontend", ["React", "Next.js", "Vite", "Tailwind CSS", "Three.js"]],
   ["Backend", ["Node.js", "Express", "Flask", "REST APIs"]],
-  ["Systems", ["MySQL", "MongoDB", "AWS", "GitHub"]],
+  ["Systems", ["MySQL", "MongoDB", "AWS", "Vercel", "GitHub"]],
 ] as const;
 
 export default function Home() {
@@ -66,7 +85,7 @@ export default function Home() {
             ))}
           </div>
           <MagneticAnchor
-            href="/Ziang%20LI.pdf"
+            href="/Ziang_Li_CV.pdf"
             className="rounded-full border border-foreground/18 bg-foreground px-4 py-2 text-sm font-medium text-background shadow-[inset_0_1px_0_rgba(232,239,238,0.35)] transition hover:bg-signal active:translate-y-px"
           >
             Download CV
@@ -88,8 +107,10 @@ export default function Home() {
           </h1>
           <p className="mt-8 max-w-[62ch] text-lg leading-8 text-muted sm:text-xl">
             I am Ziang Li, a Master of Information Technology student at the
-            University of Auckland, focused on backend systems, ML and AI
-            experiments, and interfaces that feel precise instead of noisy.
+            University of Auckland with a completed Bachelor of Science in
+            Computer Science and Information and Technology Management. I focus
+            on backend systems, ML and AI experiments, and interfaces that feel
+            precise instead of noisy.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             {["#Ziang", "#Fullstack", "#AI", "#Backend"].map((tag) => (
@@ -112,7 +133,7 @@ export default function Home() {
             <div className="space-y-6 font-mono text-sm">
               <div>
                 <p className="text-muted-2">current_focus</p>
-                <p className="mt-2 text-foreground">AI-assisted web systems</p>
+                <p className="mt-2 text-foreground">AI-assisted fullstack systems</p>
               </div>
               <div>
                 <p className="text-muted-2">location</p>
@@ -145,14 +166,27 @@ export default function Home() {
               <p className="text-lg leading-8 text-muted">
                 My path sits between practical software engineering and
                 learning-heavy experimentation: backend APIs, fullstack product
-                work, cloud basics, machine learning coursework, and AI-assisted
-                prototyping with Claude Code, Codex, and Stitch.
+                work, cloud foundations, machine learning coursework, 3D web
+                experiments, and AI-assisted prototyping with Claude Code,
+                Codex, and Stitch.
               </p>
             </article>
             <div className="grid gap-4 font-mono text-sm">
               <div className="border border-border bg-surface/40 p-5">
                 <p className="text-muted-2">education</p>
-                <p className="mt-3 text-foreground">MIT, University of Auckland</p>
+                <p className="mt-3 text-foreground">
+                  MIT, University of Auckland
+                </p>
+                <p className="mt-2 text-muted">
+                  Focus: Machine Learning and Artificial Intelligence
+                </p>
+              </div>
+              <div className="border border-border bg-surface/40 p-5">
+                <p className="text-muted-2">bachelor</p>
+                <p className="mt-3 text-foreground">
+                  BSc, Computer Science and IT Management
+                </p>
+                <p className="mt-2 text-muted">University of Auckland, 2022-2025</p>
               </div>
               <div className="border border-border bg-surface/40 p-5">
                 <p className="text-muted-2">certificate</p>
@@ -173,7 +207,9 @@ export default function Home() {
               {projects.map((project, index) => (
                 <a
                   key={project.title}
-                  href="#contact"
+                  href={project.href}
+                  target="_blank"
+                  rel="noreferrer"
                   className="project-row reveal-block group grid gap-6 border border-border bg-surface/40 p-5 transition duration-300 hover:border-signal/45 hover:bg-surface active:translate-y-px md:grid-cols-[1fr_0.65fr_7rem]"
                   style={{ "--index": index } as CSSProperties}
                 >
@@ -256,7 +292,7 @@ export default function Home() {
                 GitHub
               </MagneticAnchor>
               <MagneticAnchor
-                href="/Ziang%20LI.pdf"
+                href="/Ziang_Li_CV.pdf"
                 className="rounded-full border border-border px-5 py-3 text-sm font-medium text-foreground transition hover:border-signal hover:text-signal active:translate-y-px"
               >
                 CV
