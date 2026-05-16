@@ -42,7 +42,11 @@ export async function summarizeTrendingRepos(
     throw new Error("Could not acquire a Google Cloud access token.");
   }
 
-  const endpoint = `https://${location}-aiplatform.googleapis.com/v1/projects/${project}/locations/${location}/publishers/google/models/${MODEL_ID}:generateContent`;
+  const apiHost =
+    location === "global"
+      ? "aiplatform.googleapis.com"
+      : `${location}-aiplatform.googleapis.com`;
+  const endpoint = `https://${apiHost}/v1/projects/${project}/locations/${location}/publishers/google/models/${MODEL_ID}:generateContent`;
   const response = await fetch(endpoint, {
     method: "POST",
     headers: {
