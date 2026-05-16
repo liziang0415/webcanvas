@@ -5,16 +5,17 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: '#0a0a0a',
-        surface: '#111111',
-        border: '#1e1e1e',
-        'border-muted': '#222222',
-        foreground: '#ffffff',
-        muted: '#555555',
-        'muted-2': '#444444',
-        'muted-3': '#333333',
+        background: 'hsl(var(--background) / <alpha-value>)',
+        surface: 'hsl(var(--surface) / <alpha-value>)',
+        'surface-raised': 'hsl(var(--surface-raised) / <alpha-value>)',
+        border: 'hsl(var(--border) / <alpha-value>)',
+        foreground: 'hsl(var(--foreground) / <alpha-value>)',
+        muted: 'hsl(var(--muted) / <alpha-value>)',
+        'muted-2': 'hsl(var(--muted-2) / <alpha-value>)',
+        signal: 'hsl(var(--signal) / <alpha-value>)',
       },
       fontFamily: {
+        sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
         mono: ['var(--font-mono)', 'monospace'],
       },
     },

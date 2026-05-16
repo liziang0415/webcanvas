@@ -1,15 +1,10 @@
 import type { Metadata } from "next";
-import { Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistMono = Geist_Mono({
-  variable: "--font-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "Ziang Li",
-  description: "Personal portfolio of Ziang Li",
+  title: "Ziang Li | Fullstack Developer",
+  description:
+    "Ziang Li builds backend, AI, and fullstack systems with careful product craft.",
 };
 
 export default function RootLayout({
@@ -18,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistMono.variable} h-full antialiased`}>
+    <html lang="en" className="h-full antialiased">
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

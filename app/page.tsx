@@ -1,65 +1,316 @@
-import Image from "next/image";
+import type { CSSProperties } from "react";
+import { HeroSignal, MagneticAnchor, ScrollProgress } from "./portfolio-motion";
+
+const navItems = [
+  ["Home", "#home"],
+  ["Log", "#dev-log"],
+  ["About", "#about"],
+  ["Work", "#work"],
+  ["Stack", "#stack"],
+  ["Contact", "#contact"],
+] as const;
+
+const devLogs = [
+  {
+    date: "2026-05-17",
+    title: "Rebuilding the portfolio as a motion system",
+    body: "The new site keeps the absolute-black reference, then pushes it into off-black depth, asymmetric spacing, and quieter technical confidence.",
+    tag: "Design",
+  },
+  {
+    date: "2026-04-29",
+    title: "Why boring backend choices still win",
+    body: "Express stays in reach because it preserves speed of thought. For side projects, knowing the edges can matter more than benchmark theater.",
+    tag: "Backend",
+  },
+];
+
+const projects = [
+  {
+    title: "TeamUp",
+    type: "Collaboration platform",
+    body: "Course-team formation, authentication flows, student profiles, and group joining APIs for university workflows.",
+    stack: ["Node.js", "Express", "MongoDB"],
+    metric: "14 flows",
+  },
+  {
+    title: "Game Library",
+    type: "Collection interface",
+    body: "A responsive catalog for browsing, searching, and reviewing games with a Python backend and relational storage.",
+    stack: ["HTML/CSS", "Flask", "MySQL"],
+    metric: "3 sources",
+  },
+  {
+    title: "Personal Data Platform",
+    type: "Private analytics",
+    body: "A capstone prototype for privacy-aware personal data trading, shaped through UX research and information modelling.",
+    stack: ["Python", "SQL", "UX Design"],
+    metric: "8 pipelines",
+  },
+];
+
+const stackGroups = [
+  ["Languages", ["JavaScript", "Python", "Java", "C#"]],
+  ["Frontend", ["React", "Next.js", "Vite", "Tailwind CSS"]],
+  ["Backend", ["Node.js", "Express", "Flask", "REST APIs"]],
+  ["Systems", ["MySQL", "MongoDB", "AWS", "GitHub"]],
+] as const;
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="relative min-h-[100dvh] overflow-hidden bg-background text-foreground">
+      <ScrollProgress />
+      <div className="grain-layer" aria-hidden="true" />
+      <div className="fixed inset-0 pointer-events-none bg-[linear-gradient(rgba(146,214,203,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(146,214,203,0.035)_1px,transparent_1px)] bg-[size:72px_72px]" />
+
+      <header className="fixed inset-x-0 top-0 z-30 border-b border-border/80 bg-background/78 backdrop-blur-xl">
+        <nav className="mx-auto flex h-16 w-full max-w-[1400px] items-center justify-between px-4 sm:px-6 lg:px-10">
+          <a href="#home" className="font-sans text-base font-semibold tracking-tight">
+            Ziang Li
+          </a>
+          <div className="hidden items-center gap-1 md:flex">
+            {navItems.map(([label, href]) => (
+              <a
+                key={href}
+                href={href}
+                className="rounded-full px-3 py-2 text-sm text-muted transition duration-300 hover:bg-surface hover:text-foreground active:translate-y-px"
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+          <MagneticAnchor
+            href="/Ziang%20LI.pdf"
+            className="rounded-full border border-foreground/18 bg-foreground px-4 py-2 text-sm font-medium text-background shadow-[inset_0_1px_0_rgba(232,239,238,0.35)] transition hover:bg-signal active:translate-y-px"
+          >
+            Download CV
+          </MagneticAnchor>
+        </nav>
+      </header>
+
+      <section
+        id="home"
+        className="relative mx-auto grid min-h-[78dvh] w-full max-w-[1400px] grid-cols-1 content-center gap-12 px-4 pb-12 pt-24 sm:px-6 lg:grid-cols-[minmax(0,1.12fr)_minmax(320px,0.88fr)] lg:px-10"
+      >
+        <HeroSignal />
+        <div className="relative z-10 max-w-[760px]">
+          <p className="mb-5 font-mono text-xs uppercase tracking-[0.22em] text-signal">
+            Backend, AI, fullstack systems
           </p>
+          <h1 className="text-[clamp(3rem,6vw,6.25rem)] font-semibold leading-[0.9] tracking-tighter text-foreground">
+            I build calm software for messy problems.
+          </h1>
+          <p className="mt-8 max-w-[62ch] text-lg leading-8 text-muted sm:text-xl">
+            I am Ziang Li, a Master of Information Technology student at the
+            University of Auckland, focused on backend systems, ML and AI
+            experiments, and interfaces that feel precise instead of noisy.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            {["#Ziang", "#Fullstack", "#AI", "#Backend"].map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full border border-border bg-surface/70 px-4 py-2 font-mono text-xs text-muted"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <aside className="relative z-10 self-end lg:pb-10">
+          <div className="console-panel">
+            <div className="mb-8 flex items-center justify-between border-b border-border pb-4 font-mono text-xs text-muted">
+              <span>portfolio.kernel</span>
+              <span className="live-dot">online</span>
+            </div>
+            <div className="space-y-6 font-mono text-sm">
+              <div>
+                <p className="text-muted-2">current_focus</p>
+                <p className="mt-2 text-foreground">AI-assisted web systems</p>
+              </div>
+              <div>
+                <p className="text-muted-2">location</p>
+                <p className="mt-2 text-foreground">Auckland, New Zealand</p>
+              </div>
+              <div>
+                <p className="text-muted-2">working_style</p>
+                <p className="mt-2 text-foreground">
+                  prototype with AI tools, trace the backend path, document the
+                  tradeoffs
+                </p>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="dev-log" className="mx-auto w-full max-w-[1400px] px-4 py-20 sm:px-6 lg:px-10">
+        <div className="grid grid-cols-1 gap-10 border-t border-border pt-12 lg:grid-cols-[0.7fr_1.3fr]">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">Recent update</p>
+            <h2 className="mt-4 max-w-sm text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
+              Notes from the build bench.
+            </h2>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            {devLogs.map((entry, index) => (
+              <article
+                key={entry.title}
+                className="reveal-block border border-border bg-surface/62 p-5"
+                style={{ "--index": index } as CSSProperties}
+              >
+                <div className="flex items-center justify-between gap-4 font-mono text-xs text-muted-2">
+                  <span>{entry.date}</span>
+                  <span>{entry.tag}</span>
+                </div>
+                <h3 className="mt-6 text-2xl font-semibold tracking-tight">{entry.title}</h3>
+                <p className="mt-4 text-sm leading-7 text-muted">{entry.body}</p>
+              </article>
+            ))}
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section id="about" className="mx-auto w-full max-w-[1400px] px-4 py-20 sm:px-6 lg:px-10">
+        <div className="grid grid-cols-1 gap-10 border-t border-border pt-12 lg:grid-cols-[0.6fr_1.4fr]">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">About</p>
+            <h2 className="mt-4 max-w-sm text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
+              Student, builder, steady debugger.
+            </h2>
+          </div>
+          <div className="grid gap-4 md:grid-cols-[1fr_0.72fr]">
+            <article className="border border-border bg-surface/55 p-6">
+              <p className="text-lg leading-8 text-muted">
+                My path sits between practical software engineering and
+                learning-heavy experimentation: backend APIs, fullstack product
+                work, cloud basics, machine learning coursework, and AI-assisted
+                prototyping with Claude Code, Codex, and Stitch.
+              </p>
+            </article>
+            <div className="grid gap-4 font-mono text-sm">
+              <div className="border border-border bg-surface/40 p-5">
+                <p className="text-muted-2">education</p>
+                <p className="mt-3 text-foreground">MIT, University of Auckland</p>
+              </div>
+              <div className="border border-border bg-surface/40 p-5">
+                <p className="text-muted-2">certificate</p>
+                <p className="mt-3 text-foreground">AWS Certified Cloud Practitioner</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="work" className="mx-auto w-full max-w-[1400px] px-4 py-20 sm:px-6 lg:px-10">
+        <div className="border-t border-border pt-12">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[0.42fr_1fr]">
+            <h2 className="text-4xl font-semibold tracking-tight sm:text-6xl">
+              Selected work
+            </h2>
+            <div className="grid gap-4">
+              {projects.map((project, index) => (
+                <a
+                  key={project.title}
+                  href="#contact"
+                  className="project-row reveal-block group grid gap-6 border border-border bg-surface/40 p-5 transition duration-300 hover:border-signal/45 hover:bg-surface active:translate-y-px md:grid-cols-[1fr_0.65fr_7rem]"
+                  style={{ "--index": index } as CSSProperties}
+                >
+                  <div>
+                    <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-2">
+                      {project.type}
+                    </p>
+                    <h3 className="mt-3 text-2xl font-semibold tracking-tight group-hover:text-signal">
+                      {project.title}
+                    </h3>
+                    <p className="mt-3 max-w-[56ch] text-sm leading-7 text-muted">{project.body}</p>
+                  </div>
+                  <div className="flex flex-wrap content-start gap-2">
+                    {project.stack.map((item) => (
+                      <span
+                        key={item}
+                        className="rounded-full border border-border px-3 py-1.5 font-mono text-xs text-muted"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="font-mono text-sm text-signal md:text-right">
+                    {project.metric}
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="stack" className="mx-auto w-full max-w-[1400px] px-4 py-20 sm:px-6 lg:px-10">
+        <div className="grid grid-cols-1 gap-10 border-t border-border pt-12 lg:grid-cols-[1fr_1.35fr]">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">Tech stack</p>
+            <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+              Practical tools, carefully arranged.
+            </h2>
+          </div>
+          <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2">
+            {stackGroups.map(([group, items]) => (
+              <div key={group} className="border-t border-border pt-5">
+                <h3 className="text-xl font-semibold tracking-tight">{group}</h3>
+                <ul className="mt-5 space-y-3 text-sm text-muted">
+                  {items.map((item) => (
+                    <li key={item} className="flex items-center gap-3">
+                      <span className="h-px w-5 bg-signal/70" aria-hidden="true" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className="mx-auto w-full max-w-[1400px] px-4 py-24 sm:px-6 lg:px-10">
+        <div className="grid gap-10 border-t border-border pt-12 lg:grid-cols-[1.15fr_0.85fr]">
+          <h2 className="text-[clamp(3rem,7vw,7.5rem)] font-semibold leading-[0.9] tracking-tighter">
+            Let&apos;s build the useful thing.
+          </h2>
+          <div className="self-end">
+            <p className="max-w-[48ch] text-lg leading-8 text-muted">
+              I am open to backend, AI, and fullstack roles where craft and
+              systems thinking both matter.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <MagneticAnchor
+                href="mailto:zli775@aucklanduni.ac.nz"
+                className="rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition hover:bg-signal active:translate-y-px"
+              >
+                Email
+              </MagneticAnchor>
+              <MagneticAnchor
+                href="https://github.com/liziang0415"
+                className="rounded-full border border-border px-5 py-3 text-sm font-medium text-foreground transition hover:border-signal hover:text-signal active:translate-y-px"
+              >
+                GitHub
+              </MagneticAnchor>
+              <MagneticAnchor
+                href="/Ziang%20LI.pdf"
+                className="rounded-full border border-border px-5 py-3 text-sm font-medium text-foreground transition hover:border-signal hover:text-signal active:translate-y-px"
+              >
+                CV
+              </MagneticAnchor>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer className="border-t border-border px-4 py-8 sm:px-6 lg:px-10">
+        <div className="mx-auto flex max-w-[1400px] flex-col gap-3 font-mono text-xs text-muted-2 md:flex-row md:items-center md:justify-between">
+          <span>Ziang Li</span>
+          <span>Built with Next.js, Tailwind CSS, and Framer Motion.</span>
+        </div>
+      </footer>
+    </main>
   );
 }
