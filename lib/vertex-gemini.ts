@@ -61,8 +61,8 @@ export async function summarizeTrendingRepos(
         },
       ],
       generationConfig: {
-        temperature: 0.25,
-        maxOutputTokens: 1200,
+        temperature: 0.35,
+        maxOutputTokens: 2200,
         responseMimeType: "application/json",
       },
     }),
@@ -93,11 +93,13 @@ function buildPrompt(repos: TrendingRepo[]): string {
   }));
 
   return [
-    "Summarize these GitHub Trending repositories for a technical portfolio section.",
+    "Write 'good to know' notes for these GitHub Trending repositories for a technical portfolio section.",
     "Return JSON only, as an array of objects with exactly these keys: repo, summary.",
-    "Each summary must be one concise sentence under 28 words.",
-    "Explain what the repository appears to do and why a developer might care.",
-    "Do not invent facts beyond the supplied metadata.",
+    "Do not repeat the repository description in different words.",
+    "Focus on what is not obvious from a README-style one-line description: likely audience, adoption signal, integration risk, ecosystem fit, or why the trend may matter.",
+    "Each summary should be 2 compact sentences, 45 to 70 words total.",
+    "Use careful inference from the supplied metadata only. Say 'worth checking' for uncertainty instead of claiming unverified facts.",
+    "Avoid hype and marketing language. Be concrete and useful for a developer deciding whether to click.",
     "",
     JSON.stringify(repoLines),
   ].join("\n");

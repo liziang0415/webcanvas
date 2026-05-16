@@ -87,8 +87,8 @@ export function TrendingRepositories() {
             Trending repos, translated.
           </h2>
           <p className="mt-5 max-w-[42ch] text-sm leading-7 text-muted">
-            The top five GitHub Trending repositories, summarized through Gemini
-            2.5 Flash on Vertex AI.
+            The top five GitHub Trending repositories, annotated with extra
+            context from Gemini 2.5 Flash on Vertex AI.
           </p>
         </div>
 
@@ -178,7 +178,7 @@ export function TrendingRepositories() {
                   ) : null}
                   <div className="mt-5 border-t border-border pt-4">
                     <p className="mb-2 font-mono text-xs uppercase tracking-[0.16em] text-signal">
-                      Gemini read
+                      Good to know
                     </p>
                     <p className="text-sm leading-7 text-foreground/88">
                       {repo.summary}
