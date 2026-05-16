@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import { HeroSignal, MagneticAnchor, ScrollProgress } from "./portfolio-motion";
+import { TrendingRepositories } from "./trending-repositories";
 
 const navItems = [
   ["Home", "#home"],
@@ -9,21 +10,6 @@ const navItems = [
   ["Stack", "#stack"],
   ["Contact", "#contact"],
 ] as const;
-
-const devLogs = [
-  {
-    date: "2026-05-17",
-    title: "Rebuilding the portfolio as a motion system",
-    body: "The new site keeps the absolute-black reference, then pushes it into off-black depth, asymmetric spacing, and quieter technical confidence.",
-    tag: "Design",
-  },
-  {
-    date: "2026-04-29",
-    title: "Why boring backend choices still win",
-    body: "Express stays in reach because it preserves speed of thought. For side projects, knowing the edges can matter more than benchmark theater.",
-    tag: "Backend",
-  },
-];
 
 const projects = [
   {
@@ -144,32 +130,7 @@ export default function Home() {
         </aside>
       </section>
 
-      <section id="dev-log" className="mx-auto w-full max-w-[1400px] px-4 py-20 sm:px-6 lg:px-10">
-        <div className="grid grid-cols-1 gap-10 border-t border-border pt-12 lg:grid-cols-[0.7fr_1.3fr]">
-          <div>
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">Recent update</p>
-            <h2 className="mt-4 max-w-sm text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-              Notes from the build bench.
-            </h2>
-          </div>
-          <div className="grid gap-4 md:grid-cols-2">
-            {devLogs.map((entry, index) => (
-              <article
-                key={entry.title}
-                className="reveal-block border border-border bg-surface/62 p-5"
-                style={{ "--index": index } as CSSProperties}
-              >
-                <div className="flex items-center justify-between gap-4 font-mono text-xs text-muted-2">
-                  <span>{entry.date}</span>
-                  <span>{entry.tag}</span>
-                </div>
-                <h3 className="mt-6 text-2xl font-semibold tracking-tight">{entry.title}</h3>
-                <p className="mt-4 text-sm leading-7 text-muted">{entry.body}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <TrendingRepositories />
 
       <section id="about" className="mx-auto w-full max-w-[1400px] px-4 py-20 sm:px-6 lg:px-10">
         <div className="grid grid-cols-1 gap-10 border-t border-border pt-12 lg:grid-cols-[0.6fr_1.4fr]">
