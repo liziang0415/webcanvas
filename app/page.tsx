@@ -15,9 +15,9 @@ const projects = [
   {
     title: "TeamUp",
     type: "Collaboration platform",
-    body: "Course-team formation, authentication flows, student profiles, and group joining APIs for university workflows.",
-    stack: ["Node.js", "Express", "MongoDB"],
-    metric: "AWS",
+    body: "Course-team formation, authentication flows, student profiles, and group joining APIs for university workflows with GCP deployment support.",
+    stack: ["Node.js", "Express", "MongoDB", "GCP"],
+    metric: "GCP",
     href: "https://github.com/UOA-CS732-S1-2026/group-project-404-again",
   },
   {
@@ -32,8 +32,8 @@ const projects = [
     title: "Personal Data Platform",
     type: "Private analytics",
     body: "A capstone prototype for privacy-aware personal data trading, shaped through UX research and information modelling.",
-    stack: ["Python", "SQL", "UX Design"],
-    metric: "Capstone",
+    stack: ["Python", "SQL", "UX Design", "AWS"],
+    metric: "AWS",
     href: "https://github.com/liziang0415/DATA-MARKETPLACE",
   },
   {
@@ -57,8 +57,8 @@ const projects = [
 const stackGroups = [
   ["Languages", ["JavaScript", "TypeScript", "Python", "Java", "C#"]],
   ["Frontend", ["React", "Next.js", "Vite", "Tailwind CSS", "Three.js"]],
-  ["Backend", ["Node.js", "Express", "Flask", "REST APIs"]],
-  ["Systems", ["MySQL", "MongoDB", "AWS", "Vercel", "GitHub"]],
+  ["Backend", ["Node.js", "Express", "Flask", "REST APIs", "scikit-learn"]],
+  ["Systems", ["MySQL", "MongoDB", "AWS", "GCP", "Vercel", "Cloudflare"]],
 ] as const;
 
 export default function Home() {
@@ -108,9 +108,8 @@ export default function Home() {
           <p className="mt-8 max-w-[62ch] text-lg leading-8 text-muted sm:text-xl">
             I am Ziang Li, a Master of Information Technology student at the
             University of Auckland with a completed Bachelor of Science in
-            Computer Science and Information and Technology Management. I focus
-            on backend systems, ML and AI experiments, and interfaces that feel
-            precise instead of noisy.
+            Computer Science. I focus on backend systems, ML and AI experiments,
+            and interfaces that feel precise instead of noisy.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             {["#Ziang", "#Fullstack", "#AI", "#Backend"].map((tag) => (
@@ -173,6 +172,15 @@ export default function Home() {
             </article>
             <div className="grid gap-4 font-mono text-sm">
               <div className="border border-border bg-surface/40 p-5">
+                <p className="text-muted-2">current_role</p>
+                <p className="mt-3 text-foreground">
+                  Software Developer, Oliver Andrew Associates
+                </p>
+                <p className="mt-2 text-muted">
+                  Employee log and project management system, 2026-present
+                </p>
+              </div>
+              <div className="border border-border bg-surface/40 p-5">
                 <p className="text-muted-2">education</p>
                 <p className="mt-3 text-foreground">
                   MIT, University of Auckland
@@ -184,7 +192,7 @@ export default function Home() {
               <div className="border border-border bg-surface/40 p-5">
                 <p className="text-muted-2">bachelor</p>
                 <p className="mt-3 text-foreground">
-                  BSc, Computer Science and IT Management
+                  BSc, Computer Science
                 </p>
                 <p className="mt-2 text-muted">University of Auckland, 2022-2025</p>
               </div>
@@ -275,12 +283,12 @@ export default function Home() {
           </h2>
           <div className="self-end">
             <p className="max-w-[48ch] text-lg leading-8 text-muted">
-              I am open to backend, AI, and fullstack roles where craft and
-              systems thinking both matter.
+              I am building fullstack internal tools and still open to backend,
+              AI, and web projects where craft and systems thinking both matter.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <MagneticAnchor
-                href="mailto:zli775@aucklanduni.ac.nz"
+                href="mailto:qq2822856916@outlook.com"
                 className="rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition hover:bg-signal active:translate-y-px"
               >
                 Email

@@ -1,11 +1,6 @@
 import { GoogleAuth } from "google-auth-library";
 import type { TrendingRepo } from "./github-trending";
 
-interface GeminiSummary {
-  repo: string;
-  summary: string;
-}
-
 interface VertexPart {
   text?: string;
 }
@@ -42,11 +37,44 @@ export async function summarizeTrendingRepos(
     throw new Error("Could not acquire a Google Cloud access token.");
   }
 
-  const apiHost =
-    location === "global"
-      ? "aiplatform.googleapis.com"
-      : `${location}-aiplatform.googleapis.com`;
-  const endpoint = `https://${apiHost}/v1/projects/${project}/locations/${location}/publishers/google/models/${MODEL_ID}:generateContent`;
+  const summaries = await Promise.allSettled(
+    repos.map(async (repo) => {
+      const summary = await summarizeRepo(
+        repo,
+        endpointFor(location, project),
+        accessToken,
+      );
+      return [`${repo.owner}/${repo.name}`, summary] as const;
+    }),
+  );
+
+  const summaryMap = new Map<string, string>();
+
+  for (const result of summaries) {
+    if (result.status === "fulfilled") {
+      summaryMap.set(result.value[0], result.value[1]);
+    }
+  }
+
+  if (summaryMap.size === 0) {
+    const firstError = summaries.find(
+      (result): result is PromiseRejectedResult => result.status === "rejected",
+    );
+    throw new Error(
+      firstError?.reason instanceof Error
+        ? firstError.reason.message
+        : "Vertex AI summaries failed.",
+    );
+  }
+
+  return summaryMap;
+}
+
+async function summarizeRepo(
+  repo: TrendingRepo,
+  endpoint: string,
+  accessToken: string,
+): Promise<string> {
   const response = await fetch(endpoint, {
     method: "POST",
     headers: {
@@ -57,13 +85,15 @@ export async function summarizeTrendingRepos(
       contents: [
         {
           role: "user",
-          parts: [{ text: buildPrompt(repos) }],
+          parts: [{ text: buildPrompt(repo) }],
         },
       ],
       generationConfig: {
         temperature: 0.35,
-        maxOutputTokens: 2200,
-        responseMimeType: "application/json",
+        maxOutputTokens: 768,
+        thinkingConfig: {
+          thinkingBudget: 0,
+        },
       },
     }),
   });
@@ -74,66 +104,44 @@ export async function summarizeTrendingRepos(
   }
 
   const payload = (await response.json()) as VertexResponse;
-  const text = payload.candidates?.[0]?.content?.parts?.[0]?.text;
+  const text = payload.candidates?.[0]?.content?.parts
+    ?.map((part) => part.text ?? "")
+    .join("")
+    .trim();
 
   if (!text) {
     throw new Error("Vertex AI returned an empty summary response.");
   }
 
-  return summariesToMap(parseSummaryJson(text));
+  return text.replace(/^["']|["']$/g, "").trim();
 }
 
-function buildPrompt(repos: TrendingRepo[]): string {
-  const repoLines = repos.map((repo) => ({
+function endpointFor(location: string, project: string): string {
+  const apiHost =
+    location === "global"
+      ? "aiplatform.googleapis.com"
+      : `${location}-aiplatform.googleapis.com`;
+  return `https://${apiHost}/v1/projects/${project}/locations/${location}/publishers/google/models/${MODEL_ID}:generateContent`;
+}
+
+function buildPrompt(repo: TrendingRepo): string {
+  const repoInfo = {
     repo: `${repo.owner}/${repo.name}`,
     description: repo.description,
     language: repo.language,
     stars: repo.stars,
     starsPeriod: repo.starsPeriod,
-  }));
+  };
 
   return [
-    "Write 'good to know' notes for these GitHub Trending repositories for a technical portfolio section.",
-    "Return JSON only, as an array of objects with exactly these keys: repo, summary.",
+    "Write a 'good to know' note for this GitHub Trending repository.",
     "Do not repeat the repository description in different words.",
     "Focus on what is not obvious from a README-style one-line description: likely audience, adoption signal, integration risk, ecosystem fit, or why the trend may matter.",
-    "Each summary should be 2 compact sentences, 45 to 70 words total.",
+    "Write 2 compact sentences, 45 to 70 words total.",
     "Use careful inference from the supplied metadata only. Say 'worth checking' for uncertainty instead of claiming unverified facts.",
     "Avoid hype and marketing language. Be concrete and useful for a developer deciding whether to click.",
+    "Return plain text only. Do not return JSON, Markdown, bullets, labels, or quotes.",
     "",
-    JSON.stringify(repoLines),
+    JSON.stringify(repoInfo),
   ].join("\n");
-}
-
-function parseSummaryJson(text: string): GeminiSummary[] {
-  const parsed = JSON.parse(stripCodeFence(text)) as unknown;
-
-  if (!Array.isArray(parsed)) {
-    throw new Error("Vertex AI summary JSON was not an array.");
-  }
-
-  return parsed
-    .map((item) => {
-      if (!isRecord(item)) return null;
-      const repo = typeof item.repo === "string" ? item.repo : "";
-      const summary = typeof item.summary === "string" ? item.summary : "";
-      return repo && summary ? { repo, summary } : null;
-    })
-    .filter((item): item is GeminiSummary => item !== null);
-}
-
-function summariesToMap(summaries: GeminiSummary[]): Map<string, string> {
-  return new Map(summaries.map((item) => [item.repo, item.summary]));
-}
-
-function stripCodeFence(text: string): string {
-  return text
-    .trim()
-    .replace(/^```(?:json)?/i, "")
-    .replace(/```$/, "")
-    .trim();
-}
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null;
 }
