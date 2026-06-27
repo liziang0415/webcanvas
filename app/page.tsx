@@ -89,7 +89,7 @@ export default function Home() {
             href="#contact"
             className="shrink-0 rounded-full border border-foreground/18 bg-foreground px-3 py-2 text-xs font-medium text-background shadow-[inset_0_1px_0_rgba(232,239,238,0.35)] transition hover:bg-signal active:translate-y-px sm:px-4 sm:text-sm"
           >
-            CV
+            Download CV
           </MagneticAnchor>
         </nav>
       </header>
