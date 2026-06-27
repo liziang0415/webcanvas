@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import { HeroSignal, MagneticAnchor, ScrollProgress } from "./portfolio-motion";
+import { ProtectedContactActions } from "./protected-contact-actions";
 import { TrendingRepositories } from "./trending-repositories";
 
 const navItems = [
@@ -85,10 +86,10 @@ export default function Home() {
             ))}
           </div>
           <MagneticAnchor
-            href="/Ziang_Li_CV.pdf"
+            href="#contact"
             className="shrink-0 rounded-full border border-foreground/18 bg-foreground px-3 py-2 text-xs font-medium text-background shadow-[inset_0_1px_0_rgba(232,239,238,0.35)] transition hover:bg-signal active:translate-y-px sm:px-4 sm:text-sm"
           >
-            Download CV
+            CV
           </MagneticAnchor>
         </nav>
       </header>
@@ -286,26 +287,7 @@ export default function Home() {
               I am building fullstack internal tools and still open to backend,
               AI, and web projects where craft and systems thinking both matter.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <MagneticAnchor
-                href="mailto:qq2822856916@outlook.com"
-                className="rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition hover:bg-signal active:translate-y-px"
-              >
-                Email
-              </MagneticAnchor>
-              <MagneticAnchor
-                href="https://github.com/liziang0415"
-                className="rounded-full border border-border px-5 py-3 text-sm font-medium text-foreground transition hover:border-signal hover:text-signal active:translate-y-px"
-              >
-                GitHub
-              </MagneticAnchor>
-              <MagneticAnchor
-                href="/Ziang_Li_CV.pdf"
-                className="rounded-full border border-border px-5 py-3 text-sm font-medium text-foreground transition hover:border-signal hover:text-signal active:translate-y-px"
-              >
-                CV
-              </MagneticAnchor>
-            </div>
+            <ProtectedContactActions />
           </div>
         </div>
       </section>
