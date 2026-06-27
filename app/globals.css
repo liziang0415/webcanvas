@@ -96,6 +96,11 @@
   .project-row {
     border-radius: 24px 4px 24px 24px;
   }
+
+  .text-wrap-safe {
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
 }
 
 @keyframes reveal-up {

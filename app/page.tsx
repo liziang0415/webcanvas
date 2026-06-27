@@ -69,8 +69,8 @@ export default function Home() {
       <div className="fixed inset-0 pointer-events-none bg-[linear-gradient(rgba(146,214,203,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(146,214,203,0.035)_1px,transparent_1px)] bg-[size:72px_72px]" />
 
       <header className="fixed inset-x-0 top-0 z-30 border-b border-border/80 bg-background/78 backdrop-blur-xl">
-        <nav className="mx-auto flex h-16 w-full max-w-[1400px] items-center justify-between px-4 sm:px-6 lg:px-10">
-          <a href="#home" className="font-sans text-base font-semibold tracking-tight">
+        <nav className="mx-auto flex h-14 w-full max-w-[1400px] items-center justify-between gap-3 px-3 sm:h-16 sm:px-6 lg:px-10">
+          <a href="#home" className="shrink-0 font-sans text-sm font-semibold tracking-tight sm:text-base">
             Ziang Li
           </a>
           <div className="hidden items-center gap-1 md:flex">
@@ -86,7 +86,7 @@ export default function Home() {
           </div>
           <MagneticAnchor
             href="/Ziang_Li_CV.pdf"
-            className="rounded-full border border-foreground/18 bg-foreground px-4 py-2 text-sm font-medium text-background shadow-[inset_0_1px_0_rgba(232,239,238,0.35)] transition hover:bg-signal active:translate-y-px"
+            className="shrink-0 rounded-full border border-foreground/18 bg-foreground px-3 py-2 text-xs font-medium text-background shadow-[inset_0_1px_0_rgba(232,239,238,0.35)] transition hover:bg-signal active:translate-y-px sm:px-4 sm:text-sm"
           >
             Download CV
           </MagneticAnchor>
@@ -95,23 +95,23 @@ export default function Home() {
 
       <section
         id="home"
-        className="relative mx-auto grid min-h-[78dvh] w-full max-w-[1400px] grid-cols-1 content-center gap-12 px-4 pb-12 pt-24 sm:px-6 lg:grid-cols-[minmax(0,1.12fr)_minmax(320px,0.88fr)] lg:px-10"
+        className="relative mx-auto grid min-h-[78dvh] w-full max-w-[1400px] grid-cols-1 content-center gap-8 px-4 pb-12 pt-20 sm:gap-12 sm:px-6 sm:pt-24 lg:grid-cols-[minmax(0,1.12fr)_minmax(320px,0.88fr)] lg:px-10"
       >
         <HeroSignal />
-        <div className="relative z-10 max-w-[760px]">
-          <p className="mb-5 font-mono text-xs uppercase tracking-[0.22em] text-signal">
+        <div className="relative z-10 min-w-0 max-w-[760px]">
+          <p className="mb-4 font-mono text-[0.68rem] uppercase tracking-[0.18em] text-signal sm:mb-5 sm:text-xs sm:tracking-[0.22em]">
             Backend, AI, fullstack systems
           </p>
-          <h1 className="text-[clamp(3rem,6vw,6.25rem)] font-semibold leading-[0.9] tracking-tighter text-foreground">
+          <h1 className="text-wrap-safe text-5xl font-semibold leading-[0.9] tracking-tighter text-foreground sm:text-6xl lg:text-[6.25rem]">
             I build calm software for messy problems.
           </h1>
-          <p className="mt-8 max-w-[62ch] text-lg leading-8 text-muted sm:text-xl">
+          <p className="mt-6 max-w-[62ch] text-base leading-7 text-muted sm:mt-8 sm:text-xl sm:leading-8">
             I am Ziang Li, a Master of Information Technology student at the
             University of Auckland with a completed Bachelor of Science in
             Computer Science. I focus on backend systems, ML and AI experiments,
             and interfaces that feel precise instead of noisy.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-wrap gap-2 sm:mt-8 sm:gap-3">
             {["#Ziang", "#Fullstack", "#AI", "#Backend"].map((tag) => (
               <span
                 key={tag}
@@ -152,17 +152,17 @@ export default function Home() {
 
       <TrendingRepositories />
 
-      <section id="about" className="mx-auto w-full max-w-[1400px] px-4 py-20 sm:px-6 lg:px-10">
+      <section id="about" className="mx-auto w-full max-w-[1400px] px-4 py-14 sm:px-6 sm:py-20 lg:px-10">
         <div className="grid grid-cols-1 gap-10 border-t border-border pt-12 lg:grid-cols-[0.6fr_1.4fr]">
-          <div>
+          <div className="min-w-0">
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">About</p>
-            <h2 className="mt-4 max-w-sm text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
+            <h2 className="text-wrap-safe mt-4 max-w-sm text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
               Student, builder, steady debugger.
             </h2>
           </div>
-          <div className="grid gap-4 md:grid-cols-[1fr_0.72fr]">
-            <article className="border border-border bg-surface/55 p-6">
-              <p className="text-lg leading-8 text-muted">
+          <div className="grid min-w-0 gap-4 md:grid-cols-[1fr_0.72fr]">
+            <article className="min-w-0 border border-border bg-surface/55 p-4 sm:p-6">
+              <p className="text-base leading-7 text-muted sm:text-lg sm:leading-8">
                 My path sits between practical software engineering and
                 learning-heavy experimentation: backend APIs, fullstack product
                 work, cloud foundations, machine learning coursework, 3D web
@@ -171,16 +171,16 @@ export default function Home() {
               </p>
             </article>
             <div className="grid gap-4 font-mono text-sm">
-              <div className="border border-border bg-surface/40 p-5">
+              <div className="min-w-0 border border-border bg-surface/40 p-4 sm:p-5">
                 <p className="text-muted-2">current_role</p>
-                <p className="mt-3 text-foreground">
+                <p className="text-wrap-safe mt-3 text-foreground">
                   Software Developer, Oliver Andrew Associates
                 </p>
                 <p className="mt-2 text-muted">
                   Employee log and project management system, 2026-present
                 </p>
               </div>
-              <div className="border border-border bg-surface/40 p-5">
+              <div className="min-w-0 border border-border bg-surface/40 p-4 sm:p-5">
                 <p className="text-muted-2">education</p>
                 <p className="mt-3 text-foreground">
                   MIT, University of Auckland
@@ -189,14 +189,14 @@ export default function Home() {
                   Focus: Machine Learning and Artificial Intelligence
                 </p>
               </div>
-              <div className="border border-border bg-surface/40 p-5">
+              <div className="min-w-0 border border-border bg-surface/40 p-4 sm:p-5">
                 <p className="text-muted-2">bachelor</p>
                 <p className="mt-3 text-foreground">
                   BSc, Computer Science
                 </p>
                 <p className="mt-2 text-muted">University of Auckland, 2022-2025</p>
               </div>
-              <div className="border border-border bg-surface/40 p-5">
+              <div className="min-w-0 border border-border bg-surface/40 p-4 sm:p-5">
                 <p className="text-muted-2">certificate</p>
                 <p className="mt-3 text-foreground">AWS Certified Cloud Practitioner</p>
               </div>
@@ -205,32 +205,32 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="work" className="mx-auto w-full max-w-[1400px] px-4 py-20 sm:px-6 lg:px-10">
+      <section id="work" className="mx-auto w-full max-w-[1400px] px-4 py-14 sm:px-6 sm:py-20 lg:px-10">
         <div className="border-t border-border pt-12">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-[0.42fr_1fr]">
-            <h2 className="text-4xl font-semibold tracking-tight sm:text-6xl">
+            <h2 className="text-wrap-safe text-4xl font-semibold tracking-tight sm:text-6xl">
               Selected work
             </h2>
-            <div className="grid gap-4">
+            <div className="grid min-w-0 gap-4">
               {projects.map((project, index) => (
                 <a
                   key={project.title}
                   href={project.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="project-row reveal-block group grid gap-6 border border-border bg-surface/40 p-5 transition duration-300 hover:border-signal/45 hover:bg-surface active:translate-y-px md:grid-cols-[1fr_0.65fr_7rem]"
+                  className="project-row reveal-block group grid min-w-0 gap-5 border border-border bg-surface/40 p-4 transition duration-300 hover:border-signal/45 hover:bg-surface active:translate-y-px sm:p-5 md:grid-cols-[minmax(0,1fr)_minmax(0,0.65fr)_7rem] md:gap-6"
                   style={{ "--index": index } as CSSProperties}
                 >
-                  <div>
+                  <div className="min-w-0">
                     <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-2">
                       {project.type}
                     </p>
-                    <h3 className="mt-3 text-2xl font-semibold tracking-tight group-hover:text-signal">
+                    <h3 className="text-wrap-safe mt-3 text-2xl font-semibold tracking-tight group-hover:text-signal">
                       {project.title}
                     </h3>
-                    <p className="mt-3 max-w-[56ch] text-sm leading-7 text-muted">{project.body}</p>
+                    <p className="text-wrap-safe mt-3 max-w-[56ch] text-sm leading-7 text-muted">{project.body}</p>
                   </div>
-                  <div className="flex flex-wrap content-start gap-2">
+                  <div className="flex min-w-0 flex-wrap content-start gap-2">
                     {project.stack.map((item) => (
                       <span
                         key={item}
@@ -250,17 +250,17 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="stack" className="mx-auto w-full max-w-[1400px] px-4 py-20 sm:px-6 lg:px-10">
+      <section id="stack" className="mx-auto w-full max-w-[1400px] px-4 py-14 sm:px-6 sm:py-20 lg:px-10">
         <div className="grid grid-cols-1 gap-10 border-t border-border pt-12 lg:grid-cols-[1fr_1.35fr]">
-          <div>
+          <div className="min-w-0">
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">Tech stack</p>
-            <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+            <h2 className="text-wrap-safe mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
               Practical tools, carefully arranged.
             </h2>
           </div>
-          <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2">
+          <div className="grid min-w-0 gap-x-8 gap-y-10 sm:grid-cols-2">
             {stackGroups.map(([group, items]) => (
-              <div key={group} className="border-t border-border pt-5">
+              <div key={group} className="min-w-0 border-t border-border pt-5">
                 <h3 className="text-xl font-semibold tracking-tight">{group}</h3>
                 <ul className="mt-5 space-y-3 text-sm text-muted">
                   {items.map((item) => (
@@ -276,13 +276,13 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contact" className="mx-auto w-full max-w-[1400px] px-4 py-24 sm:px-6 lg:px-10">
+      <section id="contact" className="mx-auto w-full max-w-[1400px] px-4 py-16 sm:px-6 sm:py-24 lg:px-10">
         <div className="grid gap-10 border-t border-border pt-12 lg:grid-cols-[1.15fr_0.85fr]">
-          <h2 className="text-[clamp(3rem,7vw,7.5rem)] font-semibold leading-[0.9] tracking-tighter">
+          <h2 className="text-wrap-safe text-5xl font-semibold leading-[0.9] tracking-tighter sm:text-6xl lg:text-[7.5rem]">
             Let&apos;s build the useful thing.
           </h2>
-          <div className="self-end">
-            <p className="max-w-[48ch] text-lg leading-8 text-muted">
+          <div className="min-w-0 self-end">
+            <p className="max-w-[48ch] text-base leading-7 text-muted sm:text-lg sm:leading-8">
               I am building fullstack internal tools and still open to backend,
               AI, and web projects where craft and systems thinking both matter.
             </p>

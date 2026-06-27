@@ -77,13 +77,13 @@ export function TrendingRepositories() {
   }, [range, reloadKey]);
 
   return (
-    <section id="dev-log" className="mx-auto w-full max-w-[1400px] px-4 py-20 sm:px-6 lg:px-10">
-      <div className="grid grid-cols-1 gap-10 border-t border-border pt-12 lg:grid-cols-[0.62fr_1.38fr]">
-        <div>
+    <section id="dev-log" className="mx-auto w-full max-w-[1400px] px-4 py-14 sm:px-6 sm:py-20 lg:px-10">
+      <div className="grid grid-cols-1 gap-8 border-t border-border pt-12 sm:gap-10 lg:grid-cols-[0.62fr_1.38fr]">
+        <div className="min-w-0">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">
             GitHub signal
           </p>
-          <h2 className="mt-4 max-w-sm text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
+          <h2 className="text-wrap-safe mt-4 max-w-sm text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
             Trending repos, translated.
           </h2>
           <p className="mt-5 max-w-[42ch] text-sm leading-7 text-muted">
@@ -92,14 +92,14 @@ export function TrendingRepositories() {
           </p>
         </div>
 
-        <div>
-          <div className="mb-5 inline-grid grid-cols-3 border border-border bg-surface/60 p-1">
+        <div className="min-w-0">
+          <div className="mb-5 grid w-full grid-cols-3 border border-border bg-surface/60 p-1 sm:inline-grid sm:w-auto">
             {ranges.map((item) => (
               <button
                 key={item.value}
                 type="button"
                 onClick={() => setRange(item.value)}
-                className={`px-4 py-2 font-mono text-xs transition active:translate-y-px ${
+                className={`px-2 py-2 font-mono text-xs transition active:translate-y-px sm:px-4 ${
                   range === item.value
                     ? "bg-foreground text-background"
                     : "text-muted hover:text-foreground"
@@ -114,11 +114,11 @@ export function TrendingRepositories() {
           {isLoading ? <TrendingSkeleton /> : null}
 
           {!isLoading && error ? (
-            <div className="border border-border bg-surface/55 p-6">
-              <h3 className="text-2xl font-semibold tracking-tight">
+            <div className="min-w-0 border border-border bg-surface/55 p-4 sm:p-6">
+              <h3 className="text-wrap-safe text-2xl font-semibold tracking-tight">
                 Trending feed is unavailable.
               </h3>
-              <p className="mt-3 text-sm leading-7 text-muted">{error}</p>
+              <p className="text-wrap-safe mt-3 text-sm leading-7 text-muted">{error}</p>
               <button
                 type="button"
                 onClick={() => setReloadKey((key) => key + 1)}
@@ -130,8 +130,8 @@ export function TrendingRepositories() {
           ) : null}
 
           {!isLoading && !error && repos.length === 0 ? (
-            <div className="border border-border bg-surface/55 p-6">
-              <h3 className="text-2xl font-semibold tracking-tight">
+            <div className="min-w-0 border border-border bg-surface/55 p-4 sm:p-6">
+              <h3 className="text-wrap-safe text-2xl font-semibold tracking-tight">
                 Nothing parsed yet.
               </h3>
               <p className="mt-3 text-sm leading-7 text-muted">
@@ -143,7 +143,7 @@ export function TrendingRepositories() {
           {!isLoading && !error && repos.length > 0 ? (
             <div className="grid gap-4">
               {summaryError ? (
-                <p className="border border-border bg-surface/45 px-4 py-3 font-mono text-xs leading-6 text-muted">
+                <p className="text-wrap-safe border border-border bg-surface/45 px-4 py-3 font-mono text-xs leading-6 text-muted">
                   Gemini note: {summaryError}
                 </p>
               ) : null}
@@ -153,26 +153,26 @@ export function TrendingRepositories() {
                   href={repo.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="reveal-block group block border border-border bg-surface/45 p-5 transition duration-300 hover:border-signal/45 hover:bg-surface active:translate-y-px"
+                  className="reveal-block group block min-w-0 border border-border bg-surface/45 p-4 transition duration-300 hover:border-signal/45 hover:bg-surface active:translate-y-px sm:p-5"
                   style={{ "--index": index } as React.CSSProperties}
                 >
-                  <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-                    <div>
+                  <div className="flex min-w-0 flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                    <div className="min-w-0">
                       <p className="font-mono text-xs text-muted-2">
                         {repo.owner}
                       </p>
-                      <h3 className="mt-1 text-2xl font-semibold tracking-tight group-hover:text-signal">
+                      <h3 className="text-wrap-safe mt-1 text-2xl font-semibold tracking-tight group-hover:text-signal">
                         {repo.name}
                       </h3>
                     </div>
-                    <div className="flex flex-wrap gap-2 font-mono text-xs text-muted">
+                    <div className="flex min-w-0 flex-wrap gap-2 font-mono text-xs text-muted md:justify-end">
                       {repo.language ? <span>{repo.language}</span> : null}
                       {repo.stars ? <span>{repo.stars} stars</span> : null}
                       {repo.starsPeriod ? <span>{repo.starsPeriod}</span> : null}
                     </div>
                   </div>
                   {repo.description ? (
-                    <p className="mt-4 max-w-[78ch] text-sm leading-7 text-muted">
+                    <p className="text-wrap-safe mt-4 max-w-[78ch] text-sm leading-7 text-muted">
                       {repo.description}
                     </p>
                   ) : null}
@@ -180,7 +180,7 @@ export function TrendingRepositories() {
                     <p className="mb-2 font-mono text-xs uppercase tracking-[0.16em] text-signal">
                       Good to know
                     </p>
-                    <p className="text-sm leading-7 text-foreground/88">
+                    <p className="text-wrap-safe text-sm leading-7 text-foreground/88">
                       {repo.summary}
                     </p>
                   </div>
@@ -200,10 +200,10 @@ function TrendingSkeleton() {
       {Array.from({ length: 5 }).map((_, index) => (
         <div
           key={index}
-          className="border border-border bg-surface/45 p-5"
+          className="min-w-0 border border-border bg-surface/45 p-4 sm:p-5"
         >
           <div className="h-3 w-24 animate-pulse bg-surface-raised" />
-          <div className="mt-4 h-7 w-56 animate-pulse bg-surface-raised" />
+          <div className="mt-4 h-7 w-56 max-w-full animate-pulse bg-surface-raised" />
           <div className="mt-5 h-4 w-full animate-pulse bg-surface-raised" />
           <div className="mt-3 h-4 w-2/3 animate-pulse bg-surface-raised" />
           <div className="mt-6 border-t border-border pt-4">
