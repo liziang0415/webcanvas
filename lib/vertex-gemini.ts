@@ -1,4 +1,4 @@
-import { GoogleAuth } from "google-auth-library";
+import { GoogleAuth, type GoogleAuthOptions } from "google-auth-library";
 import type { TrendingRepo } from "./github-trending";
 
 interface VertexPart {
@@ -14,6 +14,7 @@ interface VertexResponse {
 }
 
 const MODEL_ID = "gemini-2.5-flash";
+const CLOUD_PLATFORM_SCOPE = "https://www.googleapis.com/auth/cloud-platform";
 
 export async function summarizeTrendingRepos(
   repos: TrendingRepo[],
@@ -25,9 +26,7 @@ export async function summarizeTrendingRepos(
     throw new Error("GOOGLE_CLOUD_PROJECT is required for Vertex AI summaries.");
   }
 
-  const auth = new GoogleAuth({
-    scopes: ["https://www.googleapis.com/auth/cloud-platform"],
-  });
+  const auth = new GoogleAuth(getGoogleAuthOptions());
   const client = await auth.getClient();
   const tokenResponse = await client.getAccessToken();
   const accessToken =
@@ -68,6 +67,29 @@ export async function summarizeTrendingRepos(
   }
 
   return summaryMap;
+}
+
+export function getGoogleAuthOptions(): GoogleAuthOptions {
+  const serviceAccountJson = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
+  const options: GoogleAuthOptions = {
+    scopes: [CLOUD_PLATFORM_SCOPE],
+  };
+
+  if (!serviceAccountJson) {
+    return options;
+  }
+
+  try {
+    options.credentials = JSON.parse(
+      serviceAccountJson,
+    ) as GoogleAuthOptions["credentials"];
+  } catch {
+    throw new Error(
+      "GOOGLE_SERVICE_ACCOUNT_JSON must be valid service account JSON.",
+    );
+  }
+
+  return options;
 }
 
 async function summarizeRepo(
